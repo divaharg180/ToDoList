@@ -4,10 +4,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>ToDoList</title>
   </head>
 
   <style>
+    body{
+      margin:0;
+      padding:0;
+      align-items: center;
+      background-color: brown;
+    }
     h2 {
       text-align: center;
       padding: 50px;
@@ -40,53 +46,96 @@
       cursor: pointer;
     }
     #myUL {
-      text-decoration:none;
+      margin:0px 300px;
+      align-items: center;
+      text-align: center;
       
     }
     .close {
       color: red;
       margin-left: 105px;
       font-size: 50px;
+      font-weight: bold;
+    }
+    .inputType{
+      color:white;
+      list-style-type: none;
+      padding: 5px 10px;
+      font-size: 15px;
+      margin: 10px 0;
+      background-color: blue;
+      border-radius: 50px;
+      column-gap: 20px;
+    }
+    table>tr>td{
+      border: 2px solid black;
+      border-radius: 10px;
+      background-color: blue;
+    }
+    table>tr{
+      display: grid;
+      grid-template-columns: auto auto auto;
+      grid-template-rows:auto auto;
+    }
+    
+    table{ 
+      height:50px;
+      width:50px;
+      text-align: center;
+      padding: 50px;
+      color: aliceblue;
+      font-size: 40px;
+      
     }
   </style>
   <body>
     <div id="container" class="header">
       <h2>To Do List</h2>
-      <input type="text" id="myInput" placeholder="text enter here" />
-      <span onclick="newElement()" class="addBtn">Add</span>
+      <input type="text" id="myInput" placeholder=" enter here" />
+      <button onclick="newElement()" class="addBtn">Add</button>
     </div>
 
     <ul id="myUL"></ul>
 
     <script>
-      function newElement() {
-        var li = document.createElement("li");
+     function newElement() {
+        var table = document.createElement("table");
+        table.setAttribute("id","myTable");
+        document.body.appendChild(table);
+
+        var row = document.createElement("tr");
+        row.setAttribute("id","myRow");
+        document.getElementById("myTable").appendChild(row);
+           
+        var data = document.createElement("td");
         var inputValue = document.getElementById("myInput").value;
-        var t = document.createTextNode(inputValue);
-        li.appendChild(t);
+        var t = document.createTextNode(inputValue); 
+        data.appendChild(t);
+        document.getElementById("myRow").appendChild(data);
+
         if (inputValue === "") {
           alert("You must write something!");
         } else {
-          document.getElementById("myUL").appendChild(li);
+          document.getElementById("myUL").appendChild(table);
         }
 
-        document.getElementById("myInput").value = "";
+         document.getElementById("myInput").value = "";
 
         var span = document.createElement("SPAN");
         var txt = document.createTextNode("\u00D7");
         span.className = "close";
         span.appendChild(txt);
-        li.appendChild(span);
+        data.appendChild(span);
 
         var close = document.getElementsByClassName("close");
-
         for (i = 0; i < close.length; i++) {
           close[i].onclick = function () {
             var div = this.parentElement;
-            div.style.display = "none";
+            div.remove();
           };
         }
       }
     </script>
+   
   </body>
 </html>
